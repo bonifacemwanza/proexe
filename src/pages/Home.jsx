@@ -8,9 +8,22 @@ const Home = () => {
     let data = useSelector(state => state.reducer).data
     let sort = useSelector(state => state.reducer).sort
     const dispatch = useDispatch()
+    const TableElements = ({element}) => {
+       return ( 
+       <>
+            <tr key={element.id}>
+                <td>{element.id}</td>
+                <td>{element.name}</td>
+                <td>{element.username}</td>
+                <td>{element.email}</td>
+                <td>{element.city}</td>
+                <td><Link to="/Edit"><button onClick={()=>dispatch(EDIT(element))} className='table_btn_edit'>edit</button></Link> </td>
+                <td> <button onClick={()=>dispatch(DELETE({open:true, data:element}))} className='table_btn_delete'>delete</button> </td>
+            </tr>
+        </>
+       )
+    }
 
-    // if(sort)
-    // data = data.sort((a, b) => a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1);
     return <div className='home'>
         <p className='page_header'>Dashboard</p>
         <div className='home_body'>
@@ -34,16 +47,8 @@ const Home = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(element => {
-                        return <tr key={element.id}>
-                                    <td>{element.id}</td>
-                                    <td>{element.name}</td>
-                                    <td>{element.username}</td>
-                                    <td>{element.email}</td>
-                                    <td>{element.city}</td>
-                                    <td><Link to="/Edit"><button onClick={()=>dispatch(EDIT(element))} className='table_btn_edit'>edit</button></Link> </td>
-                                    <td> <button onClick={()=>dispatch(DELETE({open:true, data:element}))} className='table_btn_delete'>delete</button> </td>
-                                </tr>
+                    {data.map(ele => {
+                      return  <TableElements element={ele} key={ele.id} />
                     })}
                 </tbody>
             </table>

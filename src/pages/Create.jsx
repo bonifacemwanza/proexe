@@ -46,7 +46,7 @@ const Create = () => {
                   <p>Names</p>
                   <input 
                     type="text"
-                    autocomplete="off"
+                    autoComplete="off"
                     onFocus={()=>setnameValid("")} value={name} onChange={(e)=>setname(e.target.value)} />
               </div>
               <p className='error_text'>{nameValid}</p>
